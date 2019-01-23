@@ -185,24 +185,24 @@ Requires: %{name}-libsync = %{version}-%{release}
 %description libsync-devel
 %{summary}.
 
-#%package libnfc
-#Summary: Near Field Communication for %{name}
-#Requires(post): /sbin/ldconfig
-#Requires(postun): /sbin/ldconfig
-#Requires: %{name} = %{version}-%{release}
+%package libnfc
+Summary: Near Field Communication for %{name}
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+Requires: %{name} = %{version}-%{release}
 
-#%description libnfc
-#%{summary}.
-#
-#%package libnfc-devel
-#Summary: Near Field Communication development library for %{name}
-#Requires(post): /sbin/ldconfig
-#Requires(postun): /sbin/ldconfig
-#Requires: %{name} = %{version}-%{release}
-#Requires: %{name}-libnfc = %{version}-%{release}
+%description libnfc
+%{summary}.
 
-#%description libnfc-devel
-#%{summary}.
+%package libnfc-devel
+Summary: Near Field Communication development library for %{name}
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libnfc = %{version}-%{release}
+
+%description libnfc-devel
+%{summary}.
 
 %package libvibrator
 Summary: Vibrator for %{name}
@@ -266,6 +266,19 @@ Requires: %{name}-libhardware = %{version}-%{release}
 Requires: %{name}-libsync = %{version}-%{release}
 
 %description tests-upstream
+%{summary}.
+
+%package tests-upstream-devel
+Summary: Tests from upstream %{name} but not working on our side, development files
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libEGL = %{version}-%{release}
+Requires: %{name}-libGLESv2 = %{version}-%{release}
+Requires: %{name}-libhardware = %{version}-%{release}
+Requires: %{name}-libsync = %{version}-%{release}
+
+%description tests-upstream-devel
 %{summary}.
 
 %prep
@@ -332,8 +345,8 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 %post libsync -p /sbin/ldconfig
 %postun libsync -p /sbin/ldconfig
 
-#%post libnfc -p /sbin/ldconfig
-#%postun libnfc -p /sbin/ldconfig
+%post libnfc -p /sbin/ldconfig
+%postun libnfc -p /sbin/ldconfig
 
 %post libvibrator -p /sbin/ldconfig
 %postun libvibrator -p /sbin/ldconfig
@@ -343,6 +356,9 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 
 %post tests-upstream -p /sbin/ldconfig
 %postun tests-upstream -p /sbin/ldconfig
+
+%post tests-upstream-devel -p /sbin/ldconfig
+%postun tests-upstream-devel -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
@@ -359,8 +375,8 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 %{_bindir}/setprop
 %{_libdir}/libhybris/linker/*.la
 %{_libdir}/libhybris/linker/*.so
-#%{_libdir}/libwifi.so.1
-#%{_libdir}/libwifi.so.1.0.0
+%{_libdir}/libwifi.so.1
+%{_libdir}/libwifi.so.1.0.0
 
 %files devel
 %defattr(-,root,root,-)
@@ -379,8 +395,8 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 %{_includedir}/hybris/surface_flinger/surface_flinger_compatibility_layer.h
 %{_includedir}/hybris/ui/ui_compatibility_layer.h
 %{_includedir}/hybris/media/*.h
-#%{_libdir}/libwifi.so
-#%{_libdir}/pkgconfig/libwifi.pc
+%{_libdir}/libwifi.so
+%{_libdir}/pkgconfig/libwifi.pc
 %{_includedir}/hybris/hwc2/hwc2_compatibility_layer.h
 %{_libdir}/pkgconfig/libhwc2.pc
 
@@ -475,14 +491,14 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 %{_libdir}/libsync.so
 %{_libdir}/pkgconfig/libsync.pc
 
-#%files libnfc
-#%defattr(-,root,root,-)
-#%{_libdir}/libnfc_*.so.*
+%files libnfc
+%defattr(-,root,root,-)
+%{_libdir}/libnfc_*.so.*
 
-#%files libnfc-devel
-#%defattr(-,root,root,-)
-#%{_libdir}/libnfc_*.so
-#%{_libdir}/pkgconfig/libnfc_*.pc
+%files libnfc-devel
+%defattr(-,root,root,-)
+%{_libdir}/libnfc_*.so
+%{_libdir}/pkgconfig/libnfc_*.pc
 
 %files libvibrator
 %defattr(-,root,root,-)
@@ -512,22 +528,15 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 %{_bindir}/test_gps
 %{_bindir}/test_hwcomposer
 %{_bindir}/test_lights
-#%{_bindir}/test_nfc
+%{_bindir}/test_nfc
 %{_bindir}/test_opencl
 %{_bindir}/test_sensors
 %{_bindir}/test_vibrator
-#%{_bindir}/test_wifi
+%{_bindir}/test_wifi
 %{_bindir}/test_hwc2
 
 %files tests-upstream
 %defattr(-,root,root,-)
-%{_libdir}/libcamera.so
-%{_libdir}/libis.so
-%{_libdir}/libmedia.so
-%{_libdir}/libui.so
-%{_libdir}/pkgconfig/libcamera.pc
-%{_libdir}/pkgconfig/libis.pc
-%{_libdir}/pkgconfig/libmedia.pc
 %{_libdir}/libcamera.so.1
 %{_libdir}/libcamera.so.1.0.0
 %{_libdir}/libis.so.1
@@ -541,3 +550,13 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 %{_bindir}/test_media
 %{_bindir}/test_recorder
 %{_bindir}/test_sf
+
+%files tests-upstream-devel
+%{_libdir}/libcamera.so
+%{_libdir}/libis.so
+%{_libdir}/libmedia.so
+%{_libdir}/libui.so
+%{_libdir}/pkgconfig/libcamera.pc
+%{_libdir}/pkgconfig/libis.pc
+%{_libdir}/pkgconfig/libmedia.pc
+
